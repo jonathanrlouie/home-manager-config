@@ -21,6 +21,7 @@
 
   home.packages = [
     pkgs.rust-analyzer
+    pkgs.tmux
   ];
 
   programs.vim = {
