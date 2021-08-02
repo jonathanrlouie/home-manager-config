@@ -19,9 +19,25 @@
   # changes in each release.
   home.stateVersion = "21.05";
 
+  home.packages = [
+    pkgs.rust-analyzer
+  ];
+
   programs.vim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [ rust-vim idris2-vim ];
+    plugins = with pkgs.vimPlugins; [ 
+      idris2-vim
+      vim-lsp
+    ];
+    extraConfig = ''
+      if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+        \   'name': 'Rust Language Server',
+        \   'cmd': {server_info->['rust-analyzer']},
+        \   'whitelist': ['rust'],
+        \ })
+endif
+    '';
   };
 
   programs.git = {
